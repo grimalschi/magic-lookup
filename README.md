@@ -1,1 +1,22 @@
 # magic-lookup
+
+```=ARRAYFORMULA(IFERROR(VLOOKUP(
+  INDIRECT(
+    CONCATENATE("R"; ROW(); "C"; MATCH(
+      INDEX(SPLIT(INDIRECT(ADDRESS(1; COLUMN(); 1)); ":"); 1); $1:$1; 0
+    ));
+  FALSE):INDIRECT(
+    CONCAT("R1000000C"; MATCH(
+      INDEX(SPLIT(INDIRECT(ADDRESS(1; COLUMN(); 1)); ":"); 1); $1:$1; 0
+    ));
+  FALSE);
+  INDIRECT(CONCATENATE(
+    "'"; INDEX(SPLIT(INDIRECT(ADDRESS(1; COLUMN(); 1)); ":"); 1); "'!$A:$FFF"
+  ));
+  MATCH(
+    INDEX(SPLIT(INDIRECT(ADDRESS(1; COLUMN(); 1)); ":"); 2);
+    INDIRECT(CONCATENATE(
+      "'"; INDEX(SPLIT(INDIRECT(ADDRESS(1; COLUMN(); 1)); ":"); 1); "'!$1:$1"
+    )); 0
+  ); FALSE
+)))```
